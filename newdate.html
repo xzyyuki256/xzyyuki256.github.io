@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>時間組件</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+            overflow: hidden;
+            background: transparent;
+        }
+        
+        #notion-time {
+            display: inline-block;
+            padding: 8px 16px;
+            border: 1px solid #000;
+            border-radius: 4px;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+            font-size: 16px;
+            background-color: #fff;
+            white-space: nowrap;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+</head>
+<body>
+    <div id="notion-time"></div>
+
+    <script>
+        // 更新时间函数
+        function updateTime() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth() + 1;
+            const day = now.getDate();
+            
+            let hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? '下午' : '上午';
+            hours = hours % 12 || 12;
+            
+            document.getElementById('notion-time').textContent = 
+                `📅今天是${year}年${month}月${day}日，現在是${ampm}${hours}點${minutes}分`;
+        }
+        
+        // 初始加载
+        updateTime();
+        
+        // 每分钟更新一次
+        setInterval(updateTime, 60000);
+    </script>
+</body>
+</html>
