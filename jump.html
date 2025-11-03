@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script>
+        // 页面加载后立即随机跳转
+        window.addEventListener('load', function() {
+            // 随机选择目标URL
+            const urls = [
+                'https://www.google.com',
+                'https://www.youtube.com/watch?v=dQw4w9WgXcQ' // Rick Astley - Never Gonna Give You Up
+            ];
+            
+            const randomIndex = Math.floor(Math.random() * urls.length);
+            const targetUrl = urls[randomIndex];
+            
+            // 立即跳转，不显示任何内容
+            window.location.href = targetUrl;
+        });
+    </script>
+</head>
+<body>
+<!-- 完全空白，没有任何内容 -->
+</body>
+</html>
