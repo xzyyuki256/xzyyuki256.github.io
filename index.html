@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>個人主頁</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;700&display=swap');
+        
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #ffffff; /* 底色：圖片變淡時會透出這個顏色 */
+            color: #4a3728;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* 背景濾鏡層 */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            
+            /* --- 本地背景圖片檔名 --- */
+           background-image: url('jason-leung-TJ1RLAvxayQ-unsplash.jpg'); 
+            
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* 調整背景透明度 */
+            opacity: 0.2; 
+            
+            /* 若想讓背景模糊可取消下方註解 */
+            filter: blur(5px);
+        }
+
+        .carrd-container {
+            max-width: 450px;
+            width: 90%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid #fbd38d;
+            box-shadow: 0 4px 6px -1px rgba(251, 211, 141, 0.2);
+            transition: all 0.2s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .item-card:hover {
+            background: #fffef0;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(251, 211, 141, 0.4);
+            border-color: #ed8936;
+        }
+
+        .icon-box {
+            background-color: #feebc8;
+            color: #dd6b20;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex items-center justify-center py-20">
+
+    <div class="carrd-container text-center">
+    
+        <!-- 標題與簡介 -->
+        <h1 class="text-3xl font-bold tracking-tight mb-2 text-orange-900">歡迎！</h1>
+        <p class="text-orange-800/70 font-light mb-12 leading-relaxed">
+            做的雜七雜八東西大部分都在這
+        </p>
+
+        <!-- 專案列表容器：這裡會由 JS 自動填充 -->
+        <div id="project-list" class="space-y-4 text-left">
+            <p class="text-center text-orange-300 text-sm">載入中...</p>
+        </div>
+
+        <!-- 底部社群連結 -->
+        <div class="mt-16 flex justify-center space-x-8 text-xl text-orange-400">
+            <a href="https://github.com/xzyyuki256" target="_blank" class="hover:text-orange-600 transition-colors">
+                <i class="fa-brands fa-github"></i>
+            </a>
+        </div>
+
+        <footer class="mt-12 text-[10px] text-orange-300 uppercase tracking-widest font-medium">
+            Github ©xzyyuki256.
+        </footer>
+
+    </div>
+    
+<script>
+        // 從外部 JSON 檔案讀取專案資料
+        async function loadProjects() {
+            const container = document.getElementById('project-list');
+            try {
+                const response = await fetch('projects.json');
+                if (!response.ok) throw new Error('無法讀取 JSON 檔案');
+                const projects = await response.json();
+                
+                // 清空載入中文字
+                container.innerHTML = '';
+
+                // 循環生成卡片
+                projects.forEach(project => {
+                    const card = `
+                        <a href="${project.link}" target="_blank" class="item-card block p-4 rounded-2xl flex items-center group">
+                            <div class="w-12 h-12 icon-box rounded-xl flex items-center justify-center mr-4 shrink-0 transition-colors group-hover:bg-orange-500 group-hover:text-white">
+                                <i class="${project.icon}"></i>
+                            </div>
+                            <div class="overflow-hidden">
+                                <h3 class="font-bold text-sm text-orange-900">${project.title}</h3>
+                                <p class="text-xs text-orange-700/60 truncate text-ellipsis">${project.description}</p>
+                            </div>
+                        </a>
+                    `;
+                    container.innerHTML += card;
+                });
+            } catch (error) {
+                console.error(error);
+                container.innerHTML = `<p class="text-center text-red-400 text-xs">專案載入失敗，請檢查 projects.json 是否存在。</p>`;
+            }
+        }
+
+        // 執行載入
+        loadProjects();
+    </script>
+</body>
+</html>
