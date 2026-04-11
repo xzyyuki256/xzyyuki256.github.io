@@ -37,7 +37,7 @@
             /* 調整背景透明度 */
             opacity: 0.2; 
             
-            /* 若想讓背景模糊可取消下方註解 */
+            /* 背景模糊 */
             filter: blur(5px);
         }
 
@@ -48,18 +48,25 @@
             z-index: 1;
         }
 
+        /* 基礎卡片樣式 */
+        .intro-card, .item-card {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .intro-card {
+            border: 1px solid rgba(251, 211, 141, 0.5);
+        }
+
         .item-card {
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid #fbd38d;
-            box-shadow: 0 4px 6px -1px rgba(251, 211, 141, 0.2);
-            transition: all 0.2s ease;
-            backdrop-filter: blur(4px);
+            border: 1px solid rgba(251, 211, 141, 0.5);
         }
 
         .item-card:hover {
-            background: #fffef0;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 15px -3px rgba(251, 211, 141, 0.4);
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -5px rgba(251, 211, 141, 0.5);
             border-color: #ed8936;
         }
 
@@ -68,33 +75,43 @@
             color: #dd6b20;
         }
     </style>
+
 </head>
 <body class="min-h-screen flex items-center justify-center py-20">
 
     <div class="carrd-container text-center">
     
-        <!-- 標題與簡介 -->
-        <h1 class="text-3xl font-bold tracking-tight mb-2 text-orange-900">歡迎！</h1>
-        <p class="text-orange-800/70 font-light mb-12 leading-relaxed">
-            做的雜七雜八東西大部分都在這
+    <div class="intro-card mb-8 p-8 rounded-3xl text-left border-2 border-orange-200 shadow-lg">
+        <div class="flex items-center mb-4">
+            <img src="https://github.com/xzyyuki256.png" class="w-16 h-16 rounded-full border-2 border-orange-400 mr-4 shadow-sm" alt="Avatar">
+            <div>
+                <h1 class="text-2xl font-bold text-orange-900">2yy Toolbox</h1>
+                <p class="text-xs text-orange-500 font-medium tracking-widest uppercase">By me</p>
+            </div>
+        </div>
+        <p class="text-orange-800/80 text-sm leading-relaxed mb-4">
+            這裏放我做的亂七八糟工具，如果剛好有人能用上就挺好啦。<br>
         </p>
+        <p class="absolute bottom-3 right-4 text-[9px] text-orange-800/50 italic">
+            *只有在自己用的機器上測試過，不保證品質良好
+        </p>
+        <div class="flex flex-wrap gap-3">
+        <a href="https://github.com/xzyyuki256" target="_blank" class="flex items-center px-3 py-2 bg-orange-100/50 hover:bg-orange-200 text-orange-700 text-xs rounded-xl transition-all duration-300">
+            <i class="fa-brands fa-github mr-2"></i> GitHub
+        </a>
+    </div>
+    </div>
+    
 
-        <!-- 專案列表容器：這裡會由 JS 自動填充 -->
-        <div id="project-list" class="space-y-4 text-left">
-            <p class="text-center text-orange-300 text-sm">載入中...</p>
+    <div class="flex items-center mb-4 px-2">
+        <div class="h-[1px] flex-grow bg-orange-200"></div>
+        <span class="mx-4 text-[10px] text-orange-400 font-bold tracking-widest uppercase">項目一覽</span>
+        <div class="h-[1px] flex-grow bg-orange-200"></div>
+    </div>
+
+    <div id="project-list" class="space-y-4 text-left">
         </div>
-
-        <!-- 底部社群連結 -->
-        <div class="mt-16 flex justify-center space-x-8 text-xl text-orange-400">
-            <a href="https://github.com/xzyyuki256" target="_blank" class="hover:text-orange-600 transition-colors">
-                <i class="fa-brands fa-github"></i>
-            </a>
-        </div>
-
-        <footer class="mt-12 text-[10px] text-orange-300 uppercase tracking-widest font-medium">
-            Github ©xzyyuki256.
-        </footer>
-
+    
     </div>
     
 <script>
