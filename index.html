@@ -127,9 +127,9 @@
                 container.innerHTML = '';
 
                 // 循環生成卡片
-                projects.forEach(project => {
+                projects.forEach((project, index) => {
                     const card = `
-                        <a href="${project.link}" target="_blank" class="item-card block p-4 rounded-2xl flex items-center group">
+                        <a href="project-detail.html?id=${index}" class="item-card block p-4 rounded-2xl flex items-center group">
                             <div class="w-12 h-12 icon-box rounded-xl flex items-center justify-center mr-4 shrink-0 transition-colors group-hover:bg-orange-500 group-hover:text-white">
                                 <i class="${project.icon}"></i>
                             </div>
